@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>CodePen - Show the Local Weather</title>
+  
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
+<link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+
+      <style>
+      body {
+   background-color: #151517;
+}
+.main-body {
+  background-image: url(https://res.cloudinary.com/kevin-borah/image/upload/v1475778960/Black_and_Blue_Shards_fccaxs.jpg);
+   color: #8D8B90;
+   padding: 40px 0 40px 0;
+}
+.blue-well {
+   background-color: #35309F;
+   border-color: #AF99F9;
+}
+.highlight {
+  color: #fff;
+  text-decoration: underline;
+}
+.img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2%;
+}
+.overlay-text {
+  position: absolute;
+  opacity: 1;
+  top: 75px;
+}
+.span-overlay {
+  padding: 4px 15px 4px 17px;
+  opacity: 0.6;
+  background-color: #35309F;
+}
+.footer {
+   background-image: url(https://res.cloudinary.com/kevin-borah/image/upload/v1475778960/Black_and_Green_Shards_kvd7qc.jpg);
+   border-color:#24A900;
+   color:#24A900;
+}
+.footer-well {
+   background-color: #24A900;
+   border-color: #000000;
+   color: #272725;
+}
+.my-pages {
+   list-style-type: none;
+   padding: none;
+   margin: none;
+   color: #171717 !important;
+   text-shadow: none !important;
+}
+#my-pages li {
+   display: inline;
+}
+.logo {
+   width: 25px;
+   display: inline;
+   margin: -12px 5px 0 0;
+   padding: none;
+}
+    </style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+<body translate="no" >
+
+  <div class="container-fluid">
+  <div class="col-md-offset-1 col-md-10 main-body">
+    <h1 style="padding: 0 0 40px 0" class="text-center"><i style="color: #35309F" class="fa fa-code"></i> Show Your Local Weather<i style="color: #35309F" class="fa fa-code"></i></h1>
+    <div class="row">
+      <div style="padding-bottom: 23px" class="col-md-offset-2 col-md-4 well blue-well">
+        <h5 class="text-center">Current Location:</h5>
+        <h5 class="text-center" id="location"><i class="fa fa-spinner fa-spin"></i></h5>
+      </div>
+      <div class="col-md-4 well blue-well text-center"><h5 class="text-center">Current Temperature:</h5>
+        <h5 class="" id="temp" style="display: inline"><i class="fa fa-spinner fa-spin"></i></h5><button type="button" style="color: #8D8B90;" class="btn btn-link btn-sm" id="F"><span class="highlight" id="°F">°F</span>/<span class="" id="°C">°C</span></button>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4 well blue-well">
+        <form class="form-inline" id="setzip">
+          <label for="zip">Input ZIP Code or City, State:</label>
+          <input type="text"  class="form-control" placeholder="30188/Woodstock, GA" id="ZIP">
+          <button type="button" style="color: #8D8B90;" class="btn btn-link" id="zipenter">Enter</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 well blue-well" >
+        <img alt="local weather image" class="img img-responsive img-center" src="" id="condition">
+        <h2 class="text-center" id="overlay-text"><i class="fa fa-spinner fa-spin fa-3x"></i></h2>
+      </div>
+    </div>
+  </div>
+   
+   
+   
+   
+   <div class="row" id="footer">
+      <div class="col-md-12 footer">
+         <div class="col-md-offset-1 col-md-3 well footer-well">
+            <h6 class="text-center"><i class="fa fa-code"></i>Coded for the Build a Show the Local Weather challenge on <a style="color: #272725; text-decoration:underline" href="https://www.freecodecamp.com" target="blank">freecodecamp.com</a>.<i class="fa fa-code"></i></h6>
+         </div>
+         <div class="col-md-3">
+            <h6 class="text-center" style="text-shadow: 2px -1px #000000; padding-top: 21px;"><i class="fa fa-fw fa-code"></i>Coded by Kevin Borah kevinborah1994@gmail.com<a href="#" target="blank" style="color: #24A900;"><i class="fa fa-fw fa-code"></i></a></h6>
+        </div>
+        <div class="col-md-1">
+          <a href="https://www.wunderground.com" target="blank"><img alt="weather underground logo" style="padding-top: 28px; width: 100px;" class="img img-responsive" src="https://icons.wxug.com/graphics/wu2/logo_130x80.png"></a>
+         </div>
+         <div class="col-md-3 well footer-well">
+            <ul class="text-center my-pages" id="my-pages">
+               <li><a class="my-pages" href="http://codepen.io/KevinBorah/full/yavGbE/" target="blank"><img id="logo" alt="Kevin Borah's logo" class="logo my-pages img img-responsive" src="https://res.cloudinary.com/kevin-borah/image/upload/v1475718309/kevin-borah-logo-less-margin_myujut.png"></a></li>
+               <li><a class="my-pages" href="http://codepen.io/KevinBorah/" target="blank"><i id="codepen" class="fa fa-fw fa-codepen fa-2x"></i></a></li>
+               <li ><a class="my-pages" href="https://github.com/KevinBorah" target="blank"><i id="git" class="fa fa-fw fa-github fa-2x"></i></a></li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div>
+    <script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-58d22c749295bca52f487966e382a94a495ac103faca9206cbd160bdf8aedf2a.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+    <script>
+    function pageBounce() {
+    $('#git').mouseenter(function () {
+        $('#git').addClass('animated bounce');
+    });
+    $('#git').mouseleave(function () {
+        $('#git').removeClass('animated bounce');
+    });
+    $('#codepen').mouseenter(function () {
+        $('#codepen').addClass('animated bounce');
+    });
+    $('#codepen').mouseleave(function () {
+        $('#codepen').removeClass('animated bounce');
+    });
+    $('#logo').mouseenter(function () {
+        $('#logo').addClass('animated bounce');
+    });
+    $('#logo').mouseleave(function () {
+        $('#logo').removeClass('animated bounce');
+    });
+}
+var temp_c;
+var temp_f;
+var icongif;
+function weather() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            $.getJSON('https://api.wunderground.com/api/426a4b4548c4d098/conditions/q/' + position.coords.latitude + ',' + position.coords.longitude + '.json', function (json) {
+                temp_f = json.current_observation.temp_f;
+                temp_c = json.current_observation.temp_c;
+                var fullLocation = json.current_observation.display_location.full;
+                var icon = json.current_observation.icon;
+                icongif = json.current_observation.icon_url;
+                var date = json.current_observation.local_time_rfc822.split(' ');
+                var time = date[4].split(':');
+                if (time[0] >= 17 || time[0] <= 8) {
+                    switch (icon) {
+                    case 'partlycloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Partly Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'cloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'mostlycloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Mostly Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'partlysunny':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Partly Sunny</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'clear':
+                    case 'mostlysunny':
+                    case 'sunny':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Clear_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> clear</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'rain':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Rain</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancerain':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Rain</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancetstorms':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Thunderstorms</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'tstorms':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Thunderstorms</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'snow':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Snow</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'sleet':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Sleet</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'flurries':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Flurries</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancesnow':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Snow</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancesleet':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Sleet</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chanceflurries':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Flurries</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                    }
+                } else {
+                    switch (icon) {
+                    case 'partlycloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Partly Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'cloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'mostlycloudy':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Mostly Cloudy</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'partlysunny':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Partly Sunny</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'clear':
+                    case 'mostlysunny':
+                    case 'sunny':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Clear_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> clear</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'rain':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Rain</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancerain':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Rain</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancetstorms':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Thunderstorms</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'tstorms':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Thunderstorms</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'snow':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Snow</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'sleet':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Sleet</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'flurries':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Flurries</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancesnow':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Snow</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chancesleet':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Sleet</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                        break;
+                    case 'chanceflurries':
+                        $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                        $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Flurries</span>');
+                        $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                    }
+                }
+                $('#temp').html('<img alt="' + icon + '" style="display: inline; margin-top: -7px; width: 25px;" class="img img-responsive" src="' + icongif + '">' + '  ' + temp_f);
+                $('#temp').addClass('f');
+                $('#location').html(fullLocation);
+            });
+        });
+    } else {
+        alert('Sorry geolocation is not supported by this browser. \n please enter a ZIP Code or City, State to view weather.');
+    }
+}
+function zipweather() {
+    $.getJSON('https://api.wunderground.com/api/426a4b4548c4d098/conditions/q/' + zip + '.json', function (json) {
+        temp_f = json.current_observation.temp_f;
+        temp_c = json.current_observation.temp_c;
+        zipLocation = json.current_observation.display_location.full;
+        var icon = json.current_observation.icon;
+        icongif = json.current_observation.icon_url;
+        $('#temp').html('<img alt="' + icon + '" style="display: inline; margin-top: -7px; width: 25px;" class="img img-responsive" src="' + icongif + '">' + '  ' + temp_f);
+        $('#temp').addClass('f');
+        $('#location').html(zipLocation);
+        var date = json.current_observation.local_time_rfc822.split(' ');
+        var time = date[4].split(':');
+        if (time[0] >= 17 || time[0] <= 8) {
+            switch (icon) {
+            case 'partlycloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Partly Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'cloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'mostlycloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Mostly Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'partlysunny':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Partly Sunny</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'clear':
+            case 'mostlysunny':
+            case 'sunny':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Clear_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> clear</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'rain':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Rain</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancerain':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Rain</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancetstorms':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Thunderstorms</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'tstorms':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Thunderstorms</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'snow':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Snow</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'sleet':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Sleet</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'flurries':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Flurries</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancesnow':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Snow</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancesleet':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Sleet</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chanceflurries':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Night.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Flurries</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+            }
+        } else {
+            switch (icon) {
+            case 'partlycloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Partly Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'cloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'mostlycloudy':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Mostly Cloudy</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'partlysunny':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Cloud_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Partly Sunny</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'clear':
+            case 'mostlysunny':
+            case 'sunny':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Clear_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> clear</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'rain':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Rain</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancerain':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Rain</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancetstorms':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Thunderstorms</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'tstorms':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Rain_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Thunderstorms</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'snow':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Snow</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'sleet':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Sleet</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'flurries':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Flurries</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancesnow':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Snow</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chancesleet':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Sleet</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+                break;
+            case 'chanceflurries':
+                $('#condition').attr('src', 'https://res.cloudinary.com/kevin-borah/image/upload/v1478747529/Show%20the%20Local%20Weather/Weather_Snow_Day.jpg');
+                $('#overlay-text').html('<span class=\'span-overlay\'> Chance of Flurries</span>');
+                $('#overlay-text').addClass('overlay-text').removeClass('text-center');
+            }
+        }
+    });
+}
+var zip;
+var zipLocation;
+$(document).ready(function () {
+    pageBounce();
+    weather();
+    $('#zipenter').on('click', function () {
+        zip = $('#ZIP').val();
+        $('#ZIP').val('');
+        $('#ZIP').attr('placeholder', zip);
+        zipweather();
+    });
+    $('#F').on('click', function () {
+        if ($('#temp').hasClass('f')) {
+            $('#temp').html('<img style="display: inline; margin-top: -7px; width: 25px;" class="img img-responsive" src="' + icongif + '">' + '  ' + temp_c);
+            $('#temp').removeClass('f');
+            $('#temp').addClass('c');
+            $('#\xB0F').removeClass('highlight');
+            $('#\xB0C').addClass('highlight');
+        } else {
+            $('#temp').html('<img style="display: inline; margin-top: -7px; width: 25px;" class="img img-responsive" src="' + icongif + '">' + '  ' + temp_f);
+            $('#temp').removeClass('c');
+            $('#temp').addClass('f');
+            $('#\xB0C').removeClass('highlight');
+            $('#\xB0F').addClass('highlight');
+        }
+    });
+    $('#setzip').keypress(function (event) {
+        return event.keyCode != 13;
+    });
+});
+  //# sourceURL=pen.js
+  </script>
+
+  
+  
+
+</body>
+</html>
